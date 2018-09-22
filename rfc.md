@@ -5,6 +5,17 @@ _Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter
 Connections
 -----------
 I believe this is all that should really be needed for developing a TCP chat with another user.
+
+Start with a flexim header:`\xa4FLEX`
+
+That's 5 bytes: 0xA4, 'F', 'L', 'E', 'X'.
+
+This also decodes as a msgpack string: "FLEX" (0xA4 means 4-character string). If this header is not received by the server at the very begining, abort the connection (TCP RST).
+
+Alternately, `\0FLEX` as header initiates the flexim protocol in text mode. Support for this mode is completely optional. Abort with TCP RST if not supported.
+
+Follow the header with the connection packet:
+
 ```rust,no-run
 struct Request {
     to: Vec<String>,

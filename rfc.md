@@ -4,8 +4,8 @@ _Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter
 
 Connections
 -----------
-I believe this is all that should really be needed for developing a TCP chat with another user.  
-NOTE: All MSGPACK encoded datums should be preceeded with a 2 bytes, big-endian, unsigned integer indicating the length of the datum.
+All packet datums are assumed to be Big-Endian unless stated otherwise.  
+All MSGPACK encoded datums should be preceeded with a 2 byte unsigned integer indicating the length of the datum.
 
 Start with a flexim header:`\xa4FLEX`
 

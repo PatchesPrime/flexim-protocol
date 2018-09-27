@@ -73,6 +73,19 @@ struct Message {
 | date | Unix Timestamp (seconds) representing the date of message SENT (not recieved) | ? |
 | msg | The content of the message, encrypted with a yet-to-be-decided cipher. | ? |
 
+```rust,no-run
+struct Auth {
+    date: i64,
+    challenge: String,
+    last_seen: i64,
+}
+```
+|Field|Description|Accepted |
+|-----|-----------|---------|
+| date | Date challenge was generated. | ? |
+| challenge | Random string for response. | ? |
+| last_seen | Last time of successful challenge. | ? |
+
 ***
 
 Handshake

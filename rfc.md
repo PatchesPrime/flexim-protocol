@@ -21,7 +21,7 @@ Follow the header with the connection packet:
 struct Request {
     to: Vec<String>,
     from: String,
-    options: Vec<ConnOption>,
+    options: Vec<String>,
 }
 ```
 |Field|Description|Accepted |
@@ -72,18 +72,6 @@ struct Message {
 | flags | Vector of client side flags, useful for custom features and the like. | ? |
 | date | Unix Timestamp (seconds) representing the date of message SENT (not recieved) | ? |
 | msg | The content of the message, encrypted with a yet-to-be-decided cipher. | ? |
-
-ConnOptions - Enum
-------------------
-```rust,no-run
-enum ConnOption {
-    Version,
-    Dummy,
-    TLS,
-    SSL,
-}
-```
-Here we can specify protocol options to go with the initial connection handshake. Let's be silly here and come up with everything neat.
 
 ***
 

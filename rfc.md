@@ -73,6 +73,9 @@ struct Message {
 | date | Unix Timestamp (seconds) representing the date of message SENT (not recieved) | ? |
 | msg | The content of the message, encrypted with a yet-to-be-decided cipher. | ? |
 
+
+Auth
+----
 ```rust,no-run
 struct Auth {
     date: i64,

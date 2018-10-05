@@ -76,15 +76,18 @@ struct Message {
 
 Auth
 ----
+This one needs some thinking. I think the challenge string is nessecary due to just being able to ask for auth and then passing known information (ie, date and last_seen fields) to auth as another user.
 ```rust,no-run
 struct Auth {
     date: i64,
+    challenge: String,
     last_seen: i64,
 }
 ```
 |Field|Description|Accepted |
 |-----|-----------|---------|
 | date | Date challenge was generated. | ? |
+| challenge | A random string to be returned as the response (encrypted with server public key?) | ? |
 | last_seen | Last time of successful challenge. | ? |
 
 ***

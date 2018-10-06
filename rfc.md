@@ -5,7 +5,18 @@ _Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter
 Connections
 -----------
 All packet datums are assumed to be Big-Endian unless stated otherwise.  
-All MSGPACK encoded datums should be preceeded with a 2 byte unsigned integer indicating the length of the datum.
+All MSGPACK encoded datums should be preceeded with a single byte representing type of datum followed by a 2 byte unsigned integer indicating the length of the datum in bytes.
+
+```rust,no-run
+enum Datum {
+    Request = 0,
+    Acknowledge = 1,
+    Connection = 2,
+    Message = 3,
+    Auth = 4,
+    Register = 5,
+}
+```  
 
 Start with a flexim header:`\xa4FLEX`
 

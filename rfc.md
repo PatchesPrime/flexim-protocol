@@ -1,6 +1,6 @@
 A Simple RFC (if you could even call it that)
 =============================================
-_Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter of fact, it is actively sought.
+_Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter of fact, it is actively sought._
 
 Datums
 ------

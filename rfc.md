@@ -153,22 +153,3 @@ struct Message {
 }
 ```
 Above, Alice has sent a message to Bob utilizing a custom client feature called "NOTIFY" that prompts a more "urgent" version of a message to the other client. Not all clients must support this, but the "HEY, LISTEN!" message goes through regardless as it is forwarded by the server. The extra urgency is pure client-side.
-
-
-
-
-
-
-***
-
-Handshake
-=========
-The handshake to begin a connection is extremely simple (at least for now) in that it just expects a properly encoded and properly structured msgpack datum.
-
-Sequence of events:
-1. Bob connects to server and waits.
-2. Alice connects to server and builds a Request datum to chat with Bob.
-3. Server builds Connection datum based on Request and fires event on the participating parties line.
-4. Bob receives event from Server and can choose to Acknowledge or ignore event.
-5. On Acknowledge of Request, Server spawns thread and socket detailed in Connection datum and sends OK to involed parties.
-6. Bob and Alice are now being relayed over Connection.

@@ -1,6 +1,7 @@
 A Simple RFC (if you could even call it that)
 =============================================
-_Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter of fact, it is actively sought._
+_Note: Nothing here is final. ALL of it is up for debate/discussion. As a matter of fact, it is actively sought.  
+Most of this is written from the viewpoint of the Server, which I feel is the "standard" of the protocol with most other features being client-side._
 
 Datums
 ------
@@ -16,18 +17,20 @@ enum Datum {
 }
 ```  
 
+_Note: All fields (except Message's "to" field as it's required by server) may be encrypted with your keys should you desire for E2E encryption._  
+
 This is the "generic" description of each datum:
 ```rust,no-run
 struct Auth {
     date: i64,
-    challenge: String,
+    challenge: String, // Encrypted with User's public key.
     last_seen: i64,
 }
 ```
 |Field|Description|Accepted |
 |-----|-----------|---------|
 | date | Date challenge was generated. | ? |
-| challenge | A random string to be returned as the response. | ? |
+| challenge | A random string to be returned as the response. Encrypted with User's public key.| ? |
 | last_seen | Last time of successful challenge. | ? |
 ```rust,no-run
 struct AuthResponse {
@@ -111,7 +114,7 @@ struct Command {
 }
 ```
 
-The server will (ideally) immediately respond with an Auth datum to challenge you:
+The server will (ideally) immediately respond with an Auth datum to challenge you, all field encrypted by requested public key:
 ```rust,no-run
 struct Auth {
     date: 1539890190,

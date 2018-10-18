@@ -44,6 +44,7 @@ struct Command {
 }
 ```
 |Field|Description|Accepted|
+|-----|-----------|---------|
 | cmd | Text that indicates type of Command, eg. "AUTH" | ? |
 | payload | Stuff that may be required to execute a command. | ? |
 

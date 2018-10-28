@@ -43,7 +43,7 @@ struct AuthResponse {
 ```rust,no-run
 struct Command {
     cmd: String, // In the case of initial connection: "AUTH"
-    payload: String,
+    payload: Vec<String>,
 }
 ```
 |Field|Description|Accepted|
@@ -110,7 +110,7 @@ To continue the connection process send an "AUTH" Command datum:
 ```rust,no-run
 struct Command {
     cmd: "AUTH"
-    payload: [PUBLIC_KEY], // The key you'd like to AUTH yourself for, sent as array/list of bytes.
+    payload: [PUBLIC_KEY], // The key you'd like to AUTH yourself for, sent as hex string in index 0
 }
 ```
 

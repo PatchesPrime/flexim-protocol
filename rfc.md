@@ -14,6 +14,7 @@ enum Datum {
     Message = 3,
     Roster = 4,
     User = 5,
+    Status = 6,
 }
 ```  
 
@@ -89,7 +90,16 @@ struct User {
 | alias | The names which this user has claimed for their use. | ? |
 | key | An array of u8 bytes with a max size of 32 indexes. This represents the public key | ? |
 | last_seen | A UNIX timestamp representing the last time a successful Auth/AuthResponse occured | ? |
-
+```rust,no-run
+struct Status {
+    status: i8,
+    payload: String,
+}
+```
+|Field|Description|Accepted |
+|-----|-----------|---------|
+| status | Negative value is an error, positive is "OK" | ? |
+| payload | A place to stick other useful data, readable by humans | ? |
 Connections
 -----------
 _NOTE: All example Datums in this section use information that matches the type but may not be actual values. Example being the "challenge" field in Auth datum. This will be longer than 20 characters, and not just alphanumeric._  

@@ -41,10 +41,10 @@ struct AuthResponse {
 |Field|Description|Accepted |
 |-----|-----------|---------|
 | challenge | Exact copy of challenge sent from server encrypted with servers public key. | ? |
-```rust,no-run
-struct Command {
-    cmd: String, // In the case of initial connection: "AUTH"
-    payload: Vec<String>,
+```go,no-run
+type Command struct {
+	Cmd     string   `msgpack:"cmd"`
+	Payload []string `msgpack:"payload"`
 }
 ```
 |Field|Description|Accepted|
@@ -52,13 +52,13 @@ struct Command {
 | cmd | Text that indicates type of Command, eg. "AUTH" | ? |
 | payload | Stuff that may be required to execute a command. | ? |
 
-```rust,no-run
-struct Message {
-    to: String,
-    from: String,
-    flags: Vec<String>, // Strings here so it can be easily extended clientside.
-    date: i64,          // SystemTime::now() - UNIX_EPOCH maybe?
-    msg: String,
+```go,no-run
+type Message struct {
+	To    string   `msgpack:"to"`
+	From  string   `msgpack:"from"`
+	Flags []string `msgpack:"flags"`
+	Date  int64    `msgpack:"date"`
+	Msg   string   `msgpack:"msg"`
 }
 ```
 |Field|Description|Accepted |
@@ -69,20 +69,18 @@ struct Message {
 | date | Unix Timestamp (seconds) representing the date of message SENT (not recieved) | ? |
 | msg | The content of the message, encrypted with a yet-to-be-decided cipher. | ? |
 
-```rust,no-run
-struct Roster {
-    users: Vec<User>,
-}
+```go,no-run
+var Roster []User
 ```
 |Field|Description|Accepted |
 |-----|-----------|---------|
-| users | A collection of the "known" users. | ? |
+| n/a |    n/a    |    n/a  |
 
-```rust,no-run
-struct User {
-    aliases: Vec<String>,
-    key: [u8; 32],
-    last_seen: i64,
+```go,no-run
+type User struct {
+	Aliases   []string `msgpack:"aliases"`
+	Key       []byte   `msgpack:"key"`
+	LastSeen int64    `msgpack:"last_seen"`
 }
 ```
 |Field|Description|Accepted |

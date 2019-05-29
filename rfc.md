@@ -109,16 +109,14 @@ Start with a flexim header:`\xa4FLEX`
 
 That's 5 bytes: 0xA4, 'F', 'L', 'E', 'X'.
 
-This also decodes as a msgpack string: "FLEX" (0xA4 means 4-character string). If this header is not received by the server at the very begining, abort the connection (TCP RST).
-
-The server will respond with its public key at this point.
+This also decodes as a msgpack string: "FLEX" (0xA4 means 4-character string). If this header is not received by the server at the very begining, it will abort the connection (TCP RST).
 
 
 To continue the connection process send an "AUTH" Command datum:
 ```rust,no-run
 struct Command {
     cmd: "AUTH"
-    payload: [PUBLIC_KEY], // The key you'd like to AUTH yourself for, sent as hex string in index 0
+    payload: [PUBLIC_KEY, optional_alias], // The key you'd like to AUTH yourself for, sent as hex string in index 0
 }
 ```
 
@@ -137,20 +135,11 @@ struct AuthResponse {
 }
 ```
 
-If all went according to plan the server will respond with your "User" datum:
-```rust,no-run
-struct User {
-    aliases: vec!["alice", "Alice", "FooBar"],
-    key: [179, 129, 226, 36, 95, 93, 208, 183, 146, 173, 72, 214, 40, 62, 45, 82, 27, 98, 16, 153, 75, 68, 240, 62, 111, 231, 14, 127, 7, 9, 64, 7]
-    last_seen: 1539890190,
-}
-```
-
-At this point you are authenticated to the server and may begin sending messages.
+If all went according to plan the server will not terminate your connection. Any datum may follow from this point as connection and authentication has been established.
 
 Messages
 --------
-As far as Message processing goes, beyond the "to" field, it is almost entirely client-side. The server only cares where to send it and should not read or modify the messages in any way whatsoever.  
+As far as Message processing goes, beyond the "to" and "from" field, it is almost entirely client-side. The server only cares where to send it and should not read or modify the messages in any way whatsoever. 
 
 Here is a small example to illustrate how sending of messages looks.
 
